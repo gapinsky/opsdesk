@@ -28,7 +28,8 @@ export const createClient = (request: NextRequest) => {
           supabaseResponse.cookies.set(name, value, options)
         );
       },
-    },
+    }
+    
   });
 
   return supabaseResponse;
