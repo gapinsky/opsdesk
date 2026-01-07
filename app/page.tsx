@@ -1,4 +1,3 @@
-import { Ticket } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {
