@@ -14,5 +14,5 @@ export default function ThemeSwitch() {
     setTheme(t === "light" ? "dark" : "light");
   };
 
-  return <Switch onClick={() => toggle()} />;
+  return <Switch onClick={() => toggle()}  />;
 }
