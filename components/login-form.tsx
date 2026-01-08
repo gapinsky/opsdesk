@@ -18,13 +18,11 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { getSupabaseBrowserClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
-
-
+import { redirect } from "next/navigation";
 
 type EmailPasswordDemoProps = {
   user: User | null;
-}
-
+};
 
 export function LoginForm({
   className,
@@ -36,21 +34,17 @@ export function LoginForm({
   const supabase = getSupabaseBrowserClient();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-
   useEffect(() => {
-    const {data: listener} = supabase.auth.onAuthStateChange(
+    const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-      setCurrentUser(session?.user ?? null);
-    }
-  );
+        setCurrentUser(session?.user ?? null);
+      }
+    );
 
     return () => {
       listener?.subscription.unsubscribe();
     };
-  }, [supabase])
-
-
-
+  }, [supabase]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,15 +53,13 @@ export function LoginForm({
       password,
     });
     if (error) {
-      setStatus(error.message);
+      console.error("Błąd logowania:", error.message);
     } else {
-      setStatus("Zalogowano pomyślnie");
+      redirect("/");
     }
-    console.log(data);
   }
 
   return (
-    
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
